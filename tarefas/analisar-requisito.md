@@ -80,11 +80,11 @@ Requisitos de Explicabilidade Refinados (RER) - artefato intermediário???Valida
 
 **O que fazer**
 
-Classificar os requisitos de acordo com a necessidade explicativa predominante. Essa classificação auxilia na escolha dos aspectos explicativos mais adequados e facilita a análise posterior.
+Classificar os requisitos de acordo com o aspecto explicativo predominante. Essa classificação auxilia na escolha dos aspectos explicativos mais adequados e facilita a análise posterior.
 
 Exemplo:
 
-| Necessidade   | Exemplos                |
+| Aspectos      | Exemplos                |
 | ------------- | ----------------------- |
 | Compreensão   | entender resultado      |
 | Justificativa | justificar decisão      |
