@@ -76,7 +76,7 @@ Requisitos de Explicabilidade Refinados (RER) - artefato intermediário???Valida
 - Existe obrigação regulatória para explicar a decisão?
 
 
-***2. Classificar necessidades explicativas***
+***2. Classificar aspectos explicativos***
 
 **O que fazer**
 
