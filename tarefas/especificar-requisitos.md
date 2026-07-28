@@ -37,7 +37,7 @@ Especificar os requisitos de explicabilidade previamente analisados, transforman
 ***1. Especificar requisitos utilizando Histórias de Usuário***
 
 **O que fazer**
-Util
+
 Especificar cada requisito de explicabilidade utilizando HU, descrevendo de forma clara quem necessita da explicação, qual necessidade deve ser atendida e qual benefício é esperado.
 
 As HU devem representar o comportamento esperado do sistema sob a perspectiva do stakeholder, permitindo que a equipe compreenda o valor da explicação e sua contribuição para o processo decisório.
