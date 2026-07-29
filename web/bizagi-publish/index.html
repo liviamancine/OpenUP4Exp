@@ -218,92 +218,109 @@
             },
             'Fase 1 - Visao': {
                 '1-define-vision': {
-                    title: '1 Define Explainability Vision',
+                    title: '1. Define Explainability Vision',
+                    file: '1 Define Explainability Vision.svg',
                     desc: 'Definicao da visao de explicabilidade do sistema.',
                     subprocessos: 3
                 },
                 '11-prepare-vision': {
-                    title: '11 Prepare Explainability Vision',
+                    title: '1.1 Prepare Explainability Vision',
+                    file: '11 Prepare Explainability Vision.svg',
                     desc: 'Preparacao para definicao da visao de explicabilidade.',
                     subprocessos: 0
                 },
                 '12-develop-vision': {
-                    title: '12 Develop Explainability Vision',
+                    title: '1.2 Develop Explainability Vision',
+                    file: '12 Develop Explainability Vision.svg',
                     desc: 'Desenvolvimento da visao de explicabilidade.',
                     subprocessos: 0
                 },
                 '13-validate-vision': {
-                    title: '13 Validate Explainability Vision',
+                    title: '1.3 Validate Explainability Vision',
+                    file: '13 Validate Explainability Vision.svg',
                     desc: 'Validacao da visao de explicabilidade.',
                     subprocessos: 0
                 }
             },
             'Fase 2 - Elicitacao': {
                 '2-elicit-requirements': {
-                    title: '2 Elicit Explainability Requirements',
+                    title: '2. Elicit Explainability Requirements',
+                    file: '2 Elicit Explainability Requirements.svg',
                     desc: 'Elicitacao de requisitos de explicabilidade.',
                     subprocessos: 2
                 },
                 '21-prepare-elicitation': {
-                    title: '21 Prepare Explainability Elicitation',
+                    title: '2.1 Prepare Explainability Elicitation',
+                    file: '21 Prepare Explainability Elicitation.svg',
                     desc: 'Preparacao para elicitacao de requisitos.',
                     subprocessos: 0
                 },
                 '22-elicit-requirements': {
-                    title: '22 Elicit Explainability Requirements',
+                    title: '2.2 Elicit Explainability Requirements',
+                    file: '22 Elicit Explainability Requirements.svg',
                     desc: 'Elicitacao propriamente dita dos requisitos.',
                     subprocessos: 0
+                },
+                '23-validate-requirements': {
+                    title: '2.3 Validate Explainability Requirements',
+                    file: '23 Validate Explainability Requirements.svg',
+                    desc: 'Validacao dos requisitos elicitados.',
+                    subprocessos: 0
                 }
+                
             },
             'Fase 3 - Analise': {
                 '3-analyze-requirements': {
-                    title: '3 Analyze Explainability Requirements',
+                    title: '3. Analyze Explainability Requirements',
+                    file: '3 Analyze Explainability Requirements.svg',
                     desc: 'Analise dos requisitos de explicabilidade.',
                     subprocessos: 3
                 },
                 '31-prepare-analysis': {
-                    title: '31 Prepare Explainability Analysis',
+                    title: '3.1 Prepare Explainability Analysis',
+                    file: '31 Prepare Explainability Analysis.svg',
                     desc: 'Preparacao para analise dos requisitos.',
                     subprocessos: 0
                 },
                 '32-analyze-requirements': {
-                    title: '32 Analyze Explainability Requirements',
+                    title: '3.2 Analyze Explainability Requirements',
+                    file: '32 Analyze Explainability Requirements.svg',
                     desc: 'Analise propriamente dita dos requisitos.',
                     subprocessos: 0
                 },
                 '33-validate-analysis': {
-                    title: '33 Validate Explainability Analysis',
+                    title: '3.3 Validate Explainability Analysis',
+                    file: '33 Validate Explainability Analysis.svg',
                     desc: 'Validacao da analise dos requisitos.',
                     subprocessos: 0
                 }
             },
             'Fase 4 - Especificacao': {
                 '4-define-specification': {
-                    title: '4 Define Explainability Specification',
+                    title: '4. Define Explainability Specification',
+                    file: '4 Define Explainability Specification.svg',
                     desc: 'Definicao da especificacao de explicabilidade.',
                     subprocessos: 3
                 },
                 '41-prepare-specification': {
-                    title: '41 Prepare Explainability Specification',
+                    title: '4.1 Prepare Explainability Specification',
+                    file: '41 Prepare Explainability Specification.svg',
                     desc: 'Preparacao para especificacao.',
                     subprocessos: 0
                 },
                 '42-specify-requirements': {
-                    title: '42 Specify Explainability Requirements',
+                    title: '4.2 Specify Explainability Requirements',   
+                    file: '42 Specify Explainability Requirements.svg',
                     desc: 'Especificacao dos requisitos de explicabilidade.',
                     subprocessos: 0
                 },
                 '43-validate-specification': {
-                    title: '43 Validate Explainability Specification',
+                    title: '4.3 Validate Explainability Specification',
+                    file: '43 Validate Explainability Specification.svg',   
                     desc: 'Validacao da especificacao.',
                     subprocessos: 0
-                },
-                '23-validate-requirements': {
-                    title: '23 Validate Explainability Requirements',
-                    desc: 'Validacao dos requisitos elicitados.',
-                    subprocessos: 0
                 }
-            }
+            },
         };
 
         const allDiagrams = {};
@@ -312,7 +329,8 @@
                 allDiagrams[key] = {
                     ...d,
                     group: groupName,
-                    file: `files/diagrams/${d.title}.svg`
+                    //file: `files/diagrams/${d.title}.svg`
+                    file: `files/diagrams/${d.file ?? d.title + '.svg'}`
                 };
             }
         }
