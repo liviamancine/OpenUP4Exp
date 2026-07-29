@@ -1,0 +1,267 @@
+/* css */
+/* Theme CSS for Bizagi Process Viewer - Compiled */
+
+/* Variables */
+:root {
+    --font-family: 'Inter', Helvetica, Arial, sans-serif;
+    --navigation: #2c3e50;
+    --navigation-link: #ecf0f1;
+    --navigation-border: #34495e;
+    --header: #34495e;
+    --header-link: #ecf0f1;
+    --header-border: #2c3e50;
+    --content: #ffffff;
+    --content-text: #2c3e50;
+    --content-border: #bdc3c7;
+    --icon-color: #3498db;
+    --hover-dashboard-panel: #3498db;
+    --alert-box-message: #e74c3c;
+}
+
+/* General */
+::-webkit-input-placeholder { color: var(--navigation-link); }
+::placeholder { color: var(--navigation-link); }
+a { color: var(--navigation-link); }
+a:hover { color: #ffffff !important; }
+h1, h2, h3, h4, h5, h6, p, span, div, body, html {
+    font-family: var(--font-family);
+}
+body {
+    background: #f5f6fa;
+    margin: 0;
+    padding: 0;
+}
+
+/* App Container */
+#app-container-view {
+    background: #34495e;
+    min-height: 100vh;
+}
+
+/* Header */
+.biz-ex-header-view {
+    background: var(--header);
+    border-bottom: 1px solid var(--header-border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.biz-ex-header-view a {
+    color: var(--header-link);
+    text-decoration: none;
+}
+.biz-ex-header-view a:hover {
+    color: #ffffff;
+}
+.bz-icon {
+    color: var(--icon-color);
+    font-size: 20px;
+}
+.biz-ex-logo {
+    background: #2c3e50;
+    border-right: 1px solid var(--header-border);
+    padding: 10px 16px;
+    font-weight: 700;
+    color: white;
+}
+.biz-ex-title-diagram {
+    color: var(--header-link);
+    font-size: 16px;
+    font-weight: 600;
+}
+
+/* Navigation Sidebar */
+#sidebar, .biz-ex-navigation-left {
+    background: var(--navigation);
+    width: 280px;
+    min-height: calc(100vh - 60px);
+    border-right: 1px solid var(--navigation-border);
+    position: fixed;
+    left: 0;
+    top: 60px;
+    overflow-y: auto;
+}
+.biz-ex-search-input, .biz-ex-icon-search {
+    background: #34495e;
+    border: 1px solid var(--navigation-border);
+    padding: 8px 12px;
+    color: var(--navigation-link);
+    width: 100%;
+    margin-bottom: 10px;
+}
+.nav-bar {
+    border-top: 1px solid var(--navigation-border);
+}
+.nav-bar a {
+    display: block;
+    padding: 10px 16px;
+    color: var(--navigation-link);
+    text-decoration: none;
+    border-bottom: 1px solid var(--navigation-border);
+    transition: background 0.2s;
+}
+.nav-bar a:hover {
+    background: #34495e;
+}
+.biz-ex-sub-page a {
+    padding-left: 30px;
+    font-size: 13px;
+}
+.biz-ex-sub-page.active {
+    background: rgba(236, 240, 241, 0.15);
+}
+.biz-ex-active.active > a {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Content Area */
+.biz-ex-diagram-data {
+    background: var(--content);
+    margin-left: 280px;
+    padding: 20px;
+    min-height: calc(100vh - 60px);
+}
+.biz-ex-figure-panel {
+    background: white;
+    border: 1px solid var(--content-border);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+.biz-ex-diagram-desc-container {
+    color: var(--content-text);
+}
+.biz-ex-img {
+    border: 1px solid var(--content-border);
+    border-radius: 4px;
+}
+
+/* Expand Button */
+.biz-ex-expand-button-span {
+    border: 1px solid var(--navigation-border);
+    background: var(--content);
+    color: var(--navigation-link);
+    padding: 4px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.biz-ex-badge {
+    border: 1px solid var(--navigation-border);
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+}
+
+/* Modal */
+.reveal-modal {
+    background: white;
+    border: 1px solid var(--content-border);
+    border-radius: 8px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+.biz-ex-dialog-header {
+    background: #ecf0f1;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--content-border);
+    font-weight: 700;
+}
+.biz-ex-dialog-details dt {
+    font-weight: 600;
+    color: var(--content-text);
+    margin-top: 10px;
+}
+.biz-ex-dialog-details dd {
+    color: var(--content-text);
+    margin-left: 0;
+    margin-bottom: 8px;
+}
+.biz-ex-dialog-line {
+    border-bottom: 1px solid var(--content-border);
+    margin: 10px 0;
+}
+.biz-ex-performer-tag {
+    background: #ecf0f1;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+.alert-box {
+    background: #fff3cd !important;
+    color: #856404;
+    padding: 12px 16px;
+    border-radius: 4px;
+    margin: 10px 0;
+}
+
+/* GUID List */
+.biz-ex-guid-wrapper {
+    border: 1px solid var(--content-border);
+    background: var(--content);
+    color: var(--content-text);
+    padding: 12px;
+    border-radius: 4px;
+}
+.biz-ex-guid-img {
+    border: 1px solid var(--content-border);
+}
+
+/* Zoom */
+.zoom-hotspot:hover {
+    border-color: transparent;
+    background: rgba(52, 152, 219, 0.3);
+}
+.zoom-pane-preview {
+    border: 1px solid var(--header-border);
+}
+.zoom-pane-square {
+    border: 1px solid var(--navigation-border);
+    background: rgba(44, 62, 80, 0.3);
+}
+
+/* Search */
+.biz-ex-search-options {
+    background: white;
+    border: 1px solid var(--content-border);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 4px;
+}
+.biz-ex-result-name, .biz-ex-result-container {
+    color: var(--content-text) !important;
+}
+.biz-ex-search-option {
+    color: var(--navigation-link);
+    padding: 8px 12px;
+}
+.biz-ex-search-option.biz-ex-active {
+    color: var(--content-text);
+    background: #ecf0f1;
+}
+
+/* Tooltip */
+.ui-tooltip {
+    background: var(--content);
+    color: var(--content-text);
+    border: 1px solid var(--content-border);
+    padding: 8px 12px;
+    border-radius: 4px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Scrollbar */
+.biz-gradien-scroll {
+    background: linear-gradient(to bottom, transparent 0%, #2c3e50 100%);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #sidebar, .biz-ex-navigation-left {
+        width: 100%;
+        position: relative;
+        top: 0;
+    }
+    .biz-ex-diagram-data {
+        margin-left: 0;
+    }
+}

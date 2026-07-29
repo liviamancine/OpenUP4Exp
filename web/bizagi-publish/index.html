@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenUPExp - Diagramas BPMN</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f8fafc;
+            color: #1e293b;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4f46e5 100%);
+            color: white;
+            padding: 20px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .header h1 { font-size: 18px; font-weight: 700; }
+        .header a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        .header a:hover { color: white; }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+        .diagram-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 20px;
+            min-height: calc(100vh - 100px);
+        }
+        .sidebar {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            height: fit-content;
+            position: sticky;
+            top: 16px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+        .sidebar h3 {
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .diagram-group { margin-bottom: 16px; }
+        .diagram-group-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #4f46e5;
+            margin-bottom: 6px;
+            padding: 4px 8px;
+            background: #e0e7ff;
+            border-radius: 6px;
+        }
+        .diagram-list { list-style: none; }
+        .diagram-list li { margin-bottom: 2px; }
+        .diagram-list a {
+            display: block;
+            padding: 8px 10px;
+            border-radius: 6px;
+            color: #475569;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.15s;
+            cursor: pointer;
+            line-height: 1.3;
+        }
+        .diagram-list a:hover { background: #e0e7ff; color: #4f46e5; }
+        .diagram-list a.active { background: #4f46e5; color: white; }
+        .content {
+            background: white;
+            border-radius: 12px;
+            padding: 28px;
+            border: 1px solid #e2e8f0;
+        }
+        .content h2 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1e1b4b;
+            margin-bottom: 6px;
+        }
+        .content .subtitle {
+            color: #64748b;
+            font-size: 13px;
+            margin-bottom: 20px;
+        }
+        .diagram-viewer {
+            background: white;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e2e8f0;
+            overflow: auto;
+        }
+        .diagram-viewer svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .diagram-viewer .placeholder { color: #94a3b8; }
+        .diagram-viewer .placeholder h4 {
+            font-size: 16px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+        .info-panel {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #4f46e5;
+        }
+        .info-panel h4 {
+            font-size: 13px;
+            font-weight: 700;
+            color: #1e1b4b;
+            margin-bottom: 6px;
+        }
+        .info-panel p {
+            font-size: 13px;
+            color: #475569;
+            line-height: 1.6;
+        }
+        .meta-tags {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+        .meta-tag {
+            padding: 3px 10px;
+            background: #e0e7ff;
+            color: #4f46e5;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .error-box {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+        }
+        .error-box h4 {
+            color: #dc2626;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        @media (max-width: 768px) {
+            .diagram-grid { grid-template-columns: 1fr; }
+            .sidebar { position: static; order: 2; max-height: none; }
+            .header { flex-direction: column; gap: 8px; text-align: center; padding: 16px; }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<base target="_blank">
+</head>
+<body>
+    <div class="header">
+        <h1>OpenUPExp - Diagramas BPMN</h1>
+        <a href="../index.html">&larr; Voltar ao Framework</a>
+    </div>
+    <div class="container">
+        <div class="diagram-grid">
+            <div class="sidebar">
+                <h3>Processos</h3>
+                <div id="diagram-menu"></div>
+            </div>
+            <div class="content">
+                <h2 id="diagram-title">OpenUPExp Process</h2>
+                <p class="subtitle" id="diagram-subtitle">Selecione um diagrama na lista</p>
+                <div class="diagram-viewer" id="diagram-viewer">
+                    <div class="placeholder">
+                        <h4>Carregando diagrama...</h4>
+                    </div>
+                </div>
+                <div class="info-panel">
+                    <h4>Descricao</h4>
+                    <p id="diagram-desc">Diagrama BPMN do processo OpenUPExp.</p>
+                    <div class="meta-tags">
+                        <span class="meta-tag">BPMN 2.0</span>
+                        <span class="meta-tag">Bizagi Modeler</span>
+                        <span class="meta-tag">OpenUPExp</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const diagramGroups = {
+            'Visao Geral': {
+                'openup-process': {
+                    title: 'OpenUPExp Process',
+                    desc: 'Visao geral do processo OpenUPExp.',
+                    subprocessos: 9
+                }
+            },
+            'Fase 1 - Visao': {
+                '1-define-vision': {
+                    title: '1 Define Explainability Vision',
+                    desc: 'Definicao da visao de explicabilidade do sistema.',
+                    subprocessos: 3
+                },
+                '11-prepare-vision': {
+                    title: '11 Prepare Explainability Vision',
+                    desc: 'Preparacao para definicao da visao de explicabilidade.',
+                    subprocessos: 0
+                },
+                '12-develop-vision': {
+                    title: '12 Develop Explainability Vision',
+                    desc: 'Desenvolvimento da visao de explicabilidade.',
+                    subprocessos: 0
+                },
+                '13-validate-vision': {
+                    title: '13 Validate Explainability Vision',
+                    desc: 'Validacao da visao de explicabilidade.',
+                    subprocessos: 0
+                }
+            },
+            'Fase 2 - Elicitacao': {
+                '2-elicit-requirements': {
+                    title: '2 Elicit Explainability Requirements',
+                    desc: 'Elicitacao de requisitos de explicabilidade.',
+                    subprocessos: 2
+                },
+                '21-prepare-elicitation': {
+                    title: '21 Prepare Explainability Elicitation',
+                    desc: 'Preparacao para elicitacao de requisitos.',
+                    subprocessos: 0
+                },
+                '22-elicit-requirements': {
+                    title: '22 Elicit Explainability Requirements',
+                    desc: 'Elicitacao propriamente dita dos requisitos.',
+                    subprocessos: 0
+                }
+            },
+            'Fase 3 - Analise': {
+                '3-analyze-requirements': {
+                    title: '3 Analyze Explainability Requirements',
+                    desc: 'Analise dos requisitos de explicabilidade.',
+                    subprocessos: 3
+                },
+                '31-prepare-analysis': {
+                    title: '31 Prepare Explainability Analysis',
+                    desc: 'Preparacao para analise dos requisitos.',
+                    subprocessos: 0
+                },
+                '32-analyze-requirements': {
+                    title: '32 Analyze Explainability Requirements',
+                    desc: 'Analise propriamente dita dos requisitos.',
+                    subprocessos: 0
+                },
+                '33-validate-analysis': {
+                    title: '33 Validate Explainability Analysis',
+                    desc: 'Validacao da analise dos requisitos.',
+                    subprocessos: 0
+                }
+            },
+            'Fase 4 - Especificacao': {
+                '4-define-specification': {
+                    title: '4 Define Explainability Specification',
+                    desc: 'Definicao da especificacao de explicabilidade.',
+                    subprocessos: 3
+                },
+                '41-prepare-specification': {
+                    title: '41 Prepare Explainability Specification',
+                    desc: 'Preparacao para especificacao.',
+                    subprocessos: 0
+                },
+                '42-specify-requirements': {
+                    title: '42 Specify Explainability Requirements',
+                    desc: 'Especificacao dos requisitos de explicabilidade.',
+                    subprocessos: 0
+                },
+                '43-validate-specification': {
+                    title: '43 Validate Explainability Specification',
+                    desc: 'Validacao da especificacao.',
+                    subprocessos: 0
+                },
+                '23-validate-requirements': {
+                    title: '23 Validate Explainability Requirements',
+                    desc: 'Validacao dos requisitos elicitados.',
+                    subprocessos: 0
+                }
+            }
+        };
+
+        const allDiagrams = {};
+        for (const [groupName, diagrams] of Object.entries(diagramGroups)) {
+            for (const [key, d] of Object.entries(diagrams)) {
+                allDiagrams[key] = {
+                    ...d,
+                    group: groupName,
+                    file: `files/diagrams/${d.title}.svg`
+                };
+            }
+        }
+
+        function createDiagramMenu() {
+            const menu = document.getElementById('diagram-menu');
+            let first = true;
+
+            for (const [groupName, diagrams] of Object.entries(diagramGroups)) {
+                const groupDiv = document.createElement('div');
+                groupDiv.className = 'diagram-group';
+
+                const title = document.createElement('div');
+                title.className = 'diagram-group-title';
+                title.textContent = groupName;
+                groupDiv.appendChild(title);
+
+                const list = document.createElement('ul');
+                list.className = 'diagram-list';
+
+                for (const [key, d] of Object.entries(diagrams)) {
+                    const li = document.createElement('li');
+                    const a = document.createElement('a');
+                    a.href = '#';
+                    a.innerHTML = `<strong>${d.title}</strong><br><span style="font-size:11px;opacity:0.7;">${d.subprocessos} Subprocesso${d.subprocessos !== 1 ? 's' : ''}</span>`;
+                    a.dataset.key = key;
+                    if (first) {
+                        a.classList.add('active');
+                        first = false;
+                    }
+                    a.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        showDiagram(key);
+                    });
+                    li.appendChild(a);
+                    list.appendChild(li);
+                }
+
+                groupDiv.appendChild(list);
+                menu.appendChild(groupDiv);
+            }
+        }
+
+        function showDiagram(key) {
+            const d = allDiagrams[key];
+            if (!d) return;
+
+            document.getElementById('diagram-title').textContent = d.title;
+            document.getElementById('diagram-subtitle').textContent = d.group + ' | ' + d.subprocessos + ' Subprocesso' + (d.subprocessos !== 1 ? 's' : '');
+            document.getElementById('diagram-desc').textContent = d.desc;
+
+            document.querySelectorAll('.diagram-list a').forEach(a => a.classList.remove('active'));
+            const activeLink = document.querySelector(`.diagram-list a[data-key="${key}"]`);
+            if (activeLink) activeLink.classList.add('active');
+
+            const viewer = document.getElementById('diagram-viewer');
+            viewer.innerHTML = '<div class="placeholder"><h4>Carregando diagrama...</h4></div>';
+
+            fetch(d.file)
+                .then(response => {
+                    if (!response.ok) throw new Error('Status: ' + response.status);
+                    return response.text();
+                })
+                .then(svgText => {
+                    // CORRIGIR CAMINHOS DOS ICONES
+                    // O Bizagi referencia icones como: img/icon.svg
+                    // Mas eles estao em: libs/img/icon.svg
+                    // Precisamos ajustar os caminhos no SVG
+                    let correctedSvg = svgText;
+
+                    // Substituir referencias a img/ por libs/img/
+                    // Mas cuidado para nao afetar outros caminhos
+                    correctedSvg = correctedSvg.replace(
+                        /xlink:href="img\//g, 
+                        'xlink:href="libs/img/'
+                    );
+                    correctedSvg = correctedSvg.replace(
+                        /href="img\//g, 
+                        'href="libs/img/'
+                    );
+
+                    viewer.innerHTML = correctedSvg;
+
+                    const svg = viewer.querySelector('svg');
+                    if (svg) {
+                        svg.style.maxWidth = '100%';
+                        svg.style.height = 'auto';
+                        svg.setAttribute('width', '100%');
+                        svg.removeAttribute('height');
+                    }
+                })
+                .catch(error => {
+                    viewer.innerHTML = `
+                        <div class="error-box">
+                            <h4>Erro ao carregar diagrama</h4>
+                            <p>Arquivo: <code>${d.file}</code></p>
+                            <p style="margin-top:8px; font-size:12px; color:#64748b;">
+                                Erro: ${error.message}
+                            </p>
+                        </div>
+                    `;
+                });
+        }
+
+        window.addEventListener('load', function() {
+            createDiagramMenu();
+            const firstKey = Object.keys(allDiagrams)[0];
+            if (firstKey) showDiagram(firstKey);
+        });
+    </script>
+</body>
+</html>
